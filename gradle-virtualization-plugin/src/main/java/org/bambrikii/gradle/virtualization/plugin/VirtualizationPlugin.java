@@ -1,7 +1,6 @@
 package org.bambrikii.gradle.virtualization.plugin;
 
 import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.model.ObjectFactory;
@@ -22,7 +21,8 @@ public class VirtualizationPlugin implements Plugin<Project> {
     registerKubernetesExtension(extensions, objects);
 
     // Docker
-    NamedDomainObjectContainer<DockerExtension> dockerExtension = registerDockerExtension(extensions, objects);
-    registerDockerTasks(project, dockerExtension, tasks);
+//    NamedDomainObjectContainer<DockerExtension> dockerExtension = registerDockerExtension(extensions, objects);
+    DockerExtension dockerExtension = registerDockerExtension(extensions);
+    registerDockerTasks(project, tasks);
   }
 }

@@ -1,58 +1,29 @@
 package org.bambrikii.gradle.virtualization.plugin.extensions;
 
-import org.gradle.api.provider.Property;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.inject.Inject;
 
-//@Getter
-//@Setter
-public abstract class DockerExtension {
-  private String dockerCommand;
-  private String dockerRepo;
-  private String username;
-  private String password;
-  private String dockerFile;
-  private String dockerSrcDir;
-  private String dockerBuildDir;
-  private String imageName;
-  private String tagName;
-
+@Getter
+@Setter
+public class DockerExtension {
   @Inject
-  public DockerExtension(
-          String dockerCommand,
-          String dockerRepo,
-          String username,
-          String password,
-          String dockerFile,
-          String dockerBuildDir,
-          String imageName,
-          String tagName
-  ) {
-    this.dockerCommand = dockerCommand;
-    this.dockerRepo = dockerRepo;
-    this.username = username;
-    this.password = password;
-    this.dockerFile = dockerFile;
-    this.dockerBuildDir = dockerBuildDir;
-    this.imageName = imageName;
-    this.tagName = tagName;
-  }
-
-  abstract public Property<String> getDockerCommand();
-
-  abstract public Property<String> getDockerRepo();
-
-  abstract public Property<String> getUsername();
-
-  abstract public Property<String> getPassword();
-
-  abstract public Property<String> getDockerFile();
-
-  abstract public Property<String> getDockerSrcDir();
-
-  abstract public Property<String> getDockerBuildDir();
-
-  abstract public Property<String> getImageName();
-
-  abstract public Property<String> getTagName();
+  private String dockerCommand;
+  @Inject
+  private String dockerRepo;
+  @Inject
+  private String username;
+  @Inject
+  private String password;
+  @Inject
+  private String dockerFile;
+  @Inject
+  private String dockerSrcDir;
+  @Inject
+  private String dockerBuildDir;
+  @Inject
+  private String imageName;
+  @Inject
+  private String tagName;
 }

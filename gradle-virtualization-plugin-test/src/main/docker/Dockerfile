@@ -1,7 +1,7 @@
 FROM openjdk:latest
 
 WORKDIR /root
-COPY build/docker/myscript.sh /root/
-COPY src/mainDockerfile /root/
+COPY src/main/bash/myscript.sh /root/
+COPY src/main/docker/Dockerfile /root/
 
 RUN /bin/ls -laR /root

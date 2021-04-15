@@ -28,11 +28,12 @@ if (pluginExists) {
     }
 
     docker {
-//        dockerFile = "src/main/docker/Dockerfile"
-//        dockerCommand = "docker"
-//        dockerRepo = "docker.io"
-//        username = "zzz"
-//        password = "zzz"
+        dockerFile = "src/main/docker/Dockerfile"
+        dockerCommand = "docker"
+        dockerRepo = "docker.io"
+        username = "zzz"
+        password = "zzz"
+        dockerBuildDir = buildDir
     }
 } else {
     logger.lifecycle("No plugin JAR found")

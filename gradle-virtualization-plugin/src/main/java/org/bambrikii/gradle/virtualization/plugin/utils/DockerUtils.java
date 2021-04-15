@@ -2,7 +2,6 @@ package org.bambrikii.gradle.virtualization.plugin.utils;
 
 import org.gradle.api.Project;
 import org.gradle.internal.impldep.org.apache.commons.io.IOUtils;
-import org.gradle.internal.impldep.org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +25,7 @@ public class DockerUtils {
   }
 
   public static Path ensureDockerSrcDir(Project project, String dockerSrcDir) {
-    Path path = StringUtils.isBlank(dockerSrcDir)
+    Path path = isBlank(dockerSrcDir)
             ? Paths.get(project.getProjectDir().getAbsolutePath())
             : Paths.get(dockerSrcDir).toAbsolutePath();
 
@@ -35,7 +34,7 @@ public class DockerUtils {
   }
 
   public static Path ensureDockerBuildDir(Project project, String dockerBuildDir) {
-    Path path = StringUtils.isBlank(dockerBuildDir)
+    Path path = isBlank(dockerBuildDir)
             ? Paths.get(project.getBuildDir().getAbsolutePath(), "docker") // create docker default build dir
             : Paths.get(dockerBuildDir).toAbsolutePath() // create docker custom build dir
             ;
@@ -72,7 +71,7 @@ public class DockerUtils {
   }
 
   public static String ensureTagName(Project project, String tagName) {
-    String tagName2 = StringUtils.isBlank(tagName)
+    String tagName2 = isBlank(tagName)
             ? project.getName()
             : tagName;
     return tagName2;

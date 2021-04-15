@@ -1,6 +1,7 @@
 package org.bambrikii.gradle.virtualization.plugin.tasks;
 
 import lombok.Setter;
+import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -13,10 +14,6 @@ import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
 public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
-  private String command;
-  private String username;
-  private String password;
-  private String repo;
 
   public DockerLoginTask() {
     super(DockerLoginTask.class);
@@ -25,8 +22,16 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
   @TaskAction
   public void exec() {
     Project project = getProject();
+    DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = getDockerCommand(command);
+    String dockerCommand = getDockerCommand(ext.getDockerCommand());
+    String username = ext.getUsername();
+    String password = ext.getPassword();
+    String repo = ext.getDockerRepo();
+
+    if (isBlank(repo)) {
+      throw new IllegalArgumentException("Docker repo required!");
+    }
 
     List<String> args = new ArrayList<>();
     args.add(dockerCommand);
