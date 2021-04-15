@@ -1,0 +1,31 @@
+plugins {
+    id "java"
+    id "java-gradle-plugin"
+}
+
+dependencies {
+    implementation(gradleApi())
+
+    compileOnly("org.projectlombok:lombok:1.18.20")
+    annotationProcessor("org.projectlombok:lombok:1.18.20")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.20")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+gradlePlugin {
+    plugins {
+        containerPlugin {
+            id = "${group}.container.plugin"
+            implementationClass = "org.bambrikii.gradle.virtualization.plugin.VirtualizationPlugin"
+        }
+    }
+}

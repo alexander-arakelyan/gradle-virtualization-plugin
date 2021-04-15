@@ -1,6 +1,7 @@
-package org.bambrikii.gradle.container.plugin.tasks;
+package org.bambrikii.gradle.virtualization.plugin.tasks;
 
-import org.bambrikii.gradle.container.plugin.DockerExtension;
+import lombok.Setter;
+import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -8,10 +9,13 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bambrikii.gradle.container.plugin.utils.DockerUtils.ensureTagName;
-import static org.bambrikii.gradle.container.plugin.utils.DockerUtils.getDockerCommand;
+import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureTagName;
 
+@Setter
 public class DockerPushTask extends AbstractExecTask<DockerPushTask> {
+  private String dockerCommand;
+  private String tagName;
+
   public DockerPushTask() {
     super(DockerPushTask.class);
   }
@@ -20,9 +24,6 @@ public class DockerPushTask extends AbstractExecTask<DockerPushTask> {
   public void exec() {
     Project project = getProject();
     DockerExtension extension = this.getExtensions().getByType(DockerExtension.class);
-
-    String dockerCommand = getDockerCommand(extension);
-    String tagName = extension.getTagName();
 
     List<String> args = new ArrayList<>();
     args.add(dockerCommand);

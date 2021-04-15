@@ -1,6 +1,7 @@
-package org.bambrikii.gradle.container.plugin.tasks;
+package org.bambrikii.gradle.virtualization.plugin.tasks;
 
-import org.bambrikii.gradle.container.plugin.DockerExtension;
+import lombok.Setter;
+import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -9,12 +10,15 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bambrikii.gradle.container.plugin.utils.DockerUtils.ensureBuildDir;
-import static org.bambrikii.gradle.container.plugin.utils.DockerUtils.ensureTagName;
-import static org.bambrikii.gradle.container.plugin.utils.DockerUtils.getDockerCommand;
-import static org.bambrikii.gradle.container.plugin.utils.DockerUtils.readImageId;
+import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureTagName;
+import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.readImageId;
 
+@Setter
 public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
+  private String dockerCommand;
+  private String tagName;
+  private Path dockerBuildDir;
+
   public DockerTagTask() {
     super(DockerTagTask.class);
   }
@@ -24,14 +28,10 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
     Project project = getProject();
     DockerExtension extension = this.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = getDockerCommand(extension);
-    String tagName = extension.getTagName();
-
     List<String> args = new ArrayList<>();
     args.add(dockerCommand);
     args.add("tag");
-    Path buildDir = ensureBuildDir(project, extension);
-    args.add(readImageId(project, buildDir));
+    args.add(readImageId(project, dockerBuildDir));
     args.add(ensureTagName(project, tagName));
 
     commandLine(args);

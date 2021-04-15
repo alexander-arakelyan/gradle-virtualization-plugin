@@ -1,2 +1,4 @@
 rootProject.name = 'gradle-container-plugin'
 
+include "gradle-virtualization-plugin"
+include "gradle-virtualization-plugin-test"
