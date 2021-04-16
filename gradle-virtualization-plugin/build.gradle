@@ -20,12 +20,47 @@ test {
     useJUnitPlatform()
 }
 
-
 gradlePlugin {
     plugins {
         containerPlugin {
             id = "${group}.container.plugin"
             implementationClass = "org.bambrikii.gradle.virtualization.plugin.VirtualizationPlugin"
+        }
+    }
+}
+
+apply from: "../gradle/publish.gradle"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.project {
+                name "Gradle Virtualization Plugin"
+                packaging "jar"
+                description "Gradle Virtualization Plugin automates Docker commands"
+                url "https://github.com/bambrikii/gradle-virtualization-plugin"
+
+                scm {
+                    connection "scm:git:https://github.com/bambrikii/gradle-virtualization-plugin.git"
+                    developerConnection "scm:git:https://github.com/bambrikii/gradle-virtualization-plugin.git"
+                    url "https://github.com/bambrikii/gradle-virtualization-plugin.git"
+                }
+
+                licenses {
+                    license {
+                        name "GNU General Public License version 3"
+                        url "https://opensource.org/licenses/GPL-3.0"
+                    }
+                }
+
+                developers {
+                    developer {
+                        id "bambrikii"
+                        name "Alexander Arakelyan"
+                        email "bambrikii@gmail.com"
+                    }
+                }
+            }
         }
     }
 }

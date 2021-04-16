@@ -30,9 +30,10 @@ if (pluginExists) {
     docker {
         dockerFile = "src/main/docker/Dockerfile"
         dockerCommand = "docker"
-        dockerRepo = "docker.io"
-        username = "zzz"
-        password = "zzz"
+        repo = "${dockerRepo}"
+        repoNamespace = "${dockerNamespace}"
+        username = "${dockerUsername}"
+        password = "${dockerPassword}"
         dockerBuildDir = buildDir
     }
 } else {

@@ -11,11 +11,13 @@ public class DockerExtension {
   @Inject
   private String dockerCommand;
   @Inject
-  private String dockerRepo;
+  private String repo;
   @Inject
   private String username;
   @Inject
   private String password;
+  @Inject
+  private String repoNamespace;
   @Inject
   private String dockerFile;
   @Inject

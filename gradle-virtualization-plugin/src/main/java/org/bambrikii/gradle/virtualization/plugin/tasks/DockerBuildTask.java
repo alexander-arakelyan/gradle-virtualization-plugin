@@ -14,6 +14,7 @@ import java.util.List;
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.DOCKER_IID;
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerBuildDir;
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerSrcDir;
+import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
@@ -49,6 +50,8 @@ public class DockerBuildTask extends AbstractExecTask<DockerBuildTask> {
     args.add(dockerBuildDir.toString() + "/" + DOCKER_IID);
 
     commandLine(args);
+
+    logCommand(getLogger(), getCommandLine());
 
     super.exec();
   }

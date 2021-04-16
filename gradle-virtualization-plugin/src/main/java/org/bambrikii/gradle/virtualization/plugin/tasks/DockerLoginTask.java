@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
+import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
@@ -27,7 +28,7 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
     String dockerCommand = getDockerCommand(ext.getDockerCommand());
     String username = ext.getUsername();
     String password = ext.getPassword();
-    String repo = ext.getDockerRepo();
+    String repo = ext.getRepo();
 
     if (isBlank(repo)) {
       throw new IllegalArgumentException("Docker repo required!");
@@ -45,6 +46,10 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
     args.add(repo);
 
     commandLine(args);
+
+    List<String> commandLine = new ArrayList<>(getCommandLine());
+    commandLine.set(commandLine.size() - 2, "<secret>");
+    logCommand(getLogger(), commandLine);
 
     super.exec();
   }

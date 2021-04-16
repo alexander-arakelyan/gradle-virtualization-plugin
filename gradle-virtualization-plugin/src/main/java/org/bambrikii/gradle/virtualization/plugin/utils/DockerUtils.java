@@ -1,7 +1,6 @@
 package org.bambrikii.gradle.virtualization.plugin.utils;
 
 import org.gradle.api.Project;
-import org.gradle.internal.impldep.org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -62,7 +61,8 @@ public class DockerUtils {
     try (InputStream inputStream = new FileInputStream(file);
          InputStreamReader inputStreamReader = new InputStreamReader(inputStream)
     ) {
-      return IOUtils.toString(inputStreamReader);
+      String imageId = IOUtils.toString(inputStreamReader);
+      return imageId.substring(imageId.indexOf(":") + 1);
     } catch (IOException ex) {
       String message = "Failed to read file image id file [" + fileName + "]";
       project.getLogger().lifecycle(message + ": " + ex.getMessage());
@@ -75,5 +75,9 @@ public class DockerUtils {
             ? project.getName()
             : tagName;
     return tagName2;
+  }
+
+  public static String buildRemoteRepoTag(String repo, String namespace, String component, String version) {
+    return repo + "/" + namespace + "/" + component + ":" + version;
   }
 }
