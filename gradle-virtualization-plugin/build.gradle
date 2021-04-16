@@ -1,7 +1,7 @@
-plugins {
-    id "java"
-    id "java-gradle-plugin"
-}
+apply plugin: "java"
+apply plugin: "java-gradle-plugin"
+
+apply from: "../gradle/publish.gradle"
 
 dependencies {
     implementation(gradleApi())
@@ -28,8 +28,6 @@ gradlePlugin {
         }
     }
 }
-
-apply from: "../gradle/publish.gradle"
 
 uploadArchives {
     repositories {
