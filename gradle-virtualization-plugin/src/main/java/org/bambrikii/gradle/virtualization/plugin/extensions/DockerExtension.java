@@ -13,6 +13,8 @@ public class DockerExtension {
   @Inject
   private String repo;
   @Inject
+  private String snapshotRepo;
+  @Inject
   private String username;
   @Inject
   private String password;

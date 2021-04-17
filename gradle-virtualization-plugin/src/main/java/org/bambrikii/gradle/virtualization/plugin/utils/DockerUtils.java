@@ -1,5 +1,6 @@
 package org.bambrikii.gradle.virtualization.plugin.utils;
 
+import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import org.gradle.api.Project;
 
 import java.io.File;
@@ -79,5 +80,17 @@ public class DockerUtils {
 
   public static String buildRemoteRepoTag(String repo, String namespace, String component, String version) {
     return repo + "/" + namespace + "/" + component + ":" + version;
+  }
+
+  public static String extractRepo(DockerExtension ext, String version) {
+    String snapshotRepo = ext.getSnapshotRepo();
+    String repo = ext.getRepo();
+    return isSnapshotVersion(version) && !isBlank(snapshotRepo)
+            ? snapshotRepo
+            : repo;
+  }
+
+  public static boolean isSnapshotVersion(String version) {
+    return version.endsWith("-SNAPSHOT");
   }
 }

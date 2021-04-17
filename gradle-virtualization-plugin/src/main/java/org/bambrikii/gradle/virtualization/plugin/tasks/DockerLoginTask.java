@@ -9,6 +9,7 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
 import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
@@ -23,12 +24,13 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
   @TaskAction
   public void exec() {
     Project project = getProject();
+    String version = project.getVersion().toString();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
     String dockerCommand = getDockerCommand(ext.getDockerCommand());
     String username = ext.getUsername();
     String password = ext.getPassword();
-    String repo = ext.getRepo();
+    String repo = extractRepo(ext, version);
 
     if (isBlank(repo)) {
       throw new IllegalArgumentException("Docker repo required!");

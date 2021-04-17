@@ -5,10 +5,10 @@ buildscript {
         }
     }
     dependencies {
-        def pluginExists = file("../gradle-virtualization-plugin/build/libs/gradle-virtualization-plugin-1.0-SNAPSHOT.jar").exists()
+        def pluginExists = file("../gradle-virtualization-plugin/build/libs/gradle-virtualization-plugin-${version}.jar").exists()
         if (pluginExists) {
             logger.lifecycle("Plugin JAR found - classpath")
-            classpath name: "gradle-virtualization-plugin", version: "1.0-SNAPSHOT", classifier: ""
+            classpath name: "gradle-virtualization-plugin", version: "${version}", classifier: ""
         } else {
             logger.lifecycle("No plugin JAR found")
         }
@@ -16,7 +16,7 @@ buildscript {
 }
 
 apply plugin: "java"
-def pluginExists = file("../gradle-virtualization-plugin/build/libs/gradle-virtualization-plugin-1.0-SNAPSHOT.jar").exists()
+def pluginExists = file("../gradle-virtualization-plugin/build/libs/gradle-virtualization-plugin-${version}.jar").exists()
 if (pluginExists) {
     apply plugin: "org.bambrikii.gradle.virtualization.plugin"
 }

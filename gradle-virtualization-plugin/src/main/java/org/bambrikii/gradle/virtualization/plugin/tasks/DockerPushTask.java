@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildRemoteRepoTag;
 import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureTagName;
+import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
 import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 
 @Setter
@@ -27,7 +28,7 @@ public class DockerPushTask extends AbstractExecTask<DockerPushTask> {
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
     String dockerCommand = DockerUtils.getDockerCommand(ext.getDockerCommand());
-    String repo = ext.getRepo();
+    String repo = extractRepo(ext, version);
     String namespace = ext.getRepoNamespace();
     String tagName = ext.getTagName();
 

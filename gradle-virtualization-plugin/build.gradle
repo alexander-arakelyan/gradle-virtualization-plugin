@@ -23,7 +23,7 @@ test {
 gradlePlugin {
     plugins {
         containerPlugin {
-            id = "${group}.container.plugin"
+            id = "org.bambrikii.gradle.virtualization.plugin"
             implementationClass = "org.bambrikii.gradle.virtualization.plugin.VirtualizationPlugin"
         }
     }
