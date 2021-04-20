@@ -2,6 +2,7 @@ apply plugin: "java"
 apply plugin: "java-gradle-plugin"
 
 apply from: "../gradle/publish.gradle"
+apply from: "../gradle/plugin.gradle"
 
 dependencies {
     implementation(gradleApi())
@@ -22,7 +23,7 @@ test {
 
 gradlePlugin {
     plugins {
-        containerPlugin {
+        virtualizationPlugin {
             id = "org.bambrikii.gradle.virtualization.plugin"
             implementationClass = "org.bambrikii.gradle.virtualization.plugin.VirtualizationPlugin"
         }
@@ -59,6 +60,20 @@ uploadArchives {
                     }
                 }
             }
+        }
+    }
+}
+
+pluginBundle {
+    website = "https://github.com/bambrikii/gradle-virtualization-plugin"
+    vcsUrl = "https://github.com/bambrikii/gradle-virtualization-plugin"
+    description = "Gradle Docker and Kubernetes plugin"
+    tags = ["virtualization", "docker", "kubernetes"]
+
+    plugins {
+        virtualizationPlugin {
+            // id is captured from java-gradle-plugin configuration
+            displayName = 'Gradle Virtualization plugin'
         }
     }
 }
