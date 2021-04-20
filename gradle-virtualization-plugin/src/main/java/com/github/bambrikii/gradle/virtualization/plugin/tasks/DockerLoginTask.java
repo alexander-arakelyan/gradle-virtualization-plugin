@@ -1,7 +1,7 @@
-package io.github.bambrikii.gradle.virtualization.plugin.tasks;
+package com.github.bambrikii.gradle.virtualization.plugin.tasks;
 
-import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import io.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
+import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import lombok.Setter;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
@@ -10,13 +10,12 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
-import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
 public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
-
   public DockerLoginTask() {
     super(DockerLoginTask.class);
   }

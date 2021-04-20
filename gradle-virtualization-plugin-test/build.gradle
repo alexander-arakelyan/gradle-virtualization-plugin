@@ -19,7 +19,7 @@ apply plugin: "java"
 def pluginExists = file("../gradle-virtualization-plugin/build/libs/gradle-virtualization-plugin-${version}.jar").exists()
 //pluginExists=false
 if (pluginExists) {
-    apply plugin: "${project.group}.virtualization.plugin"
+    apply plugin: "${group}.gradle.virtualization.plugin"
 }
 
 if (pluginExists) {

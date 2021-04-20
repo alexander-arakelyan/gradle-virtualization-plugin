@@ -1,10 +1,10 @@
-package io.github.bambrikii.gradle.virtualization.plugin.utils;
+package com.github.bambrikii.gradle.virtualization.plugin.utils;
 
-import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import io.github.bambrikii.gradle.virtualization.plugin.tasks.DockerBuildTask;
-import io.github.bambrikii.gradle.virtualization.plugin.tasks.DockerLoginTask;
-import io.github.bambrikii.gradle.virtualization.plugin.tasks.DockerPushTask;
-import io.github.bambrikii.gradle.virtualization.plugin.tasks.DockerTagTask;
+import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerBuildTask;
+import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerLoginTask;
+import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerPushTask;
+import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerTagTask;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Project;
 import org.gradle.api.model.ObjectFactory;
@@ -12,7 +12,6 @@ import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.tasks.TaskContainer;
 
 public class DockerTaskUtils {
-
   public static final String VIRTUALIZATION_GROUP = "virtualization";
 
   private DockerTaskUtils() {

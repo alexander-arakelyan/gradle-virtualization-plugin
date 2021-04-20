@@ -1,4 +1,4 @@
-package io.github.bambrikii.gradle.virtualization.plugin.extensions;
+package com.github.bambrikii.gradle.virtualization.plugin.extensions;
 
 import lombok.Getter;
 import lombok.Setter;

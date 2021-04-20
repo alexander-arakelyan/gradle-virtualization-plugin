@@ -1,8 +1,8 @@
-package io.github.bambrikii.gradle.virtualization.plugin.tasks;
+package com.github.bambrikii.gradle.virtualization.plugin.tasks;
 
-import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
-import io.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
+import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
+import com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import lombok.Setter;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;

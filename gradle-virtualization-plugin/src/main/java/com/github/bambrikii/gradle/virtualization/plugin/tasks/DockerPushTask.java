@@ -1,8 +1,8 @@
-package io.github.bambrikii.gradle.virtualization.plugin.tasks;
+package com.github.bambrikii.gradle.virtualization.plugin.tasks;
 
-import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import lombok.Setter;
-import io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
+import com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -10,10 +10,10 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildRemoteRepoTag;
-import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureTagName;
-import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
-import static io.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildRemoteRepoTag;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureTagName;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 
 @Setter
 public class DockerPushTask extends AbstractExecTask<DockerPushTask> {

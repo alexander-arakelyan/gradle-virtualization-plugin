@@ -1,4 +1,4 @@
-package io.github.bambrikii.gradle.virtualization.plugin.utils;
+package com.github.bambrikii.gradle.virtualization.plugin.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
