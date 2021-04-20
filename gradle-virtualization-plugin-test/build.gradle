@@ -17,8 +17,9 @@ buildscript {
 
 apply plugin: "java"
 def pluginExists = file("../gradle-virtualization-plugin/build/libs/gradle-virtualization-plugin-${version}.jar").exists()
+//pluginExists=false
 if (pluginExists) {
-    apply plugin: "org.bambrikii.gradle.virtualization.plugin"
+    apply plugin: "${project.group}.virtualization.plugin"
 }
 
 if (pluginExists) {

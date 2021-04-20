@@ -1,6 +1,6 @@
-package org.bambrikii.gradle.virtualization.plugin.utils;
+package io.github.bambrikii.gradle.virtualization.plugin.utils;
 
-import org.bambrikii.gradle.virtualization.plugin.extensions.KubernetesExtension;
+import io.github.bambrikii.gradle.virtualization.plugin.extensions.KubernetesExtension;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.plugins.ExtensionContainer;

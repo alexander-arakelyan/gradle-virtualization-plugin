@@ -1,4 +1,4 @@
-package org.bambrikii.gradle.virtualization.plugin.utils;
+package io.github.bambrikii.gradle.virtualization.plugin.utils;
 
 import org.gradle.api.logging.Logger;
 

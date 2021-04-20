@@ -24,8 +24,8 @@ test {
 gradlePlugin {
     plugins {
         virtualizationPlugin {
-            id = "org.bambrikii.gradle.virtualization.plugin"
-            implementationClass = "org.bambrikii.gradle.virtualization.plugin.VirtualizationPlugin"
+            id = "${project.group}.virtualization.plugin"
+            implementationClass = "${project.group}.virtualization.plugin.VirtualizationPlugin"
         }
     }
 }

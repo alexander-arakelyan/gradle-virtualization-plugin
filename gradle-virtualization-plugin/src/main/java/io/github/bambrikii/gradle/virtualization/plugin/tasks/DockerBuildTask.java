@@ -1,8 +1,8 @@
-package org.bambrikii.gradle.virtualization.plugin.tasks;
+package io.github.bambrikii.gradle.virtualization.plugin.tasks;
 
 import lombok.Setter;
-import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
+import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -11,10 +11,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.DOCKER_IID;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerBuildDir;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerSrcDir;
-import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
+import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.DOCKER_IID;
+import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerBuildDir;
+import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerSrcDir;
+import static io.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter

@@ -1,8 +1,9 @@
-package org.bambrikii.gradle.virtualization.plugin.tasks;
+package io.github.bambrikii.gradle.virtualization.plugin.tasks;
 
+import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
+import io.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import lombok.Setter;
-import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -10,13 +11,6 @@ import org.gradle.api.tasks.TaskAction;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildRemoteRepoTag;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerBuildDir;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureTagName;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.readImageId;
-import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 
 @Setter
 public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
@@ -31,16 +25,16 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
     String dockerCommand = DockerUtils.getDockerCommand(ext.getDockerCommand());
-    Path dockerBuildDir = ensureDockerBuildDir(project, ext.getDockerBuildDir());
+    Path dockerBuildDir = DockerUtils.ensureDockerBuildDir(project, ext.getDockerBuildDir());
     String tagName = ext.getTagName();
-    String repo = extractRepo(ext, version);
+    String repo = DockerUtils.extractRepo(ext, version);
     String namespace = ext.getRepoNamespace();
 
-    String imageId = readImageId(project, dockerBuildDir);
-    String component = ensureTagName(project, tagName);
+    String imageId = DockerUtils.readImageId(project, dockerBuildDir);
+    String component = DockerUtils.ensureTagName(project, tagName);
 
-    tag(dockerCommand, imageId, buildRemoteRepoTag(repo, namespace, component, version));
-    tag(dockerCommand, imageId, buildRemoteRepoTag(repo, namespace, component, "latest"));
+    tag(dockerCommand, imageId, DockerUtils.buildRemoteRepoTag(repo, namespace, component, version));
+    tag(dockerCommand, imageId, DockerUtils.buildRemoteRepoTag(repo, namespace, component, "latest"));
   }
 
   private String commit(String dockerCommand, String imageId, String component, final String version) {
@@ -55,7 +49,7 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
 
     commandLine(args);
 
-    logCommand(getLogger(), getCommandLine());
+    LogUtils.logCommand(getLogger(), getCommandLine());
 
     super.exec();
 
@@ -72,7 +66,7 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
 
     commandLine(args);
 
-    logCommand(getLogger(), getCommandLine());
+    LogUtils.logCommand(getLogger(), getCommandLine());
 
     super.exec();
   }

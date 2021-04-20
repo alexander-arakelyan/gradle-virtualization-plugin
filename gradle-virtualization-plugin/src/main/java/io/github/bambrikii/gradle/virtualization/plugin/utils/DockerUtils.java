@@ -1,6 +1,6 @@
-package org.bambrikii.gradle.virtualization.plugin.utils;
+package io.github.bambrikii.gradle.virtualization.plugin.utils;
 
-import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import org.gradle.api.Project;
 
 import java.io.File;

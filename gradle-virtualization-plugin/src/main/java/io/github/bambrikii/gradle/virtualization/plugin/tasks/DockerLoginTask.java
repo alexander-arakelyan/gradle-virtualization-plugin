@@ -1,7 +1,8 @@
-package org.bambrikii.gradle.virtualization.plugin.tasks;
+package io.github.bambrikii.gradle.virtualization.plugin.tasks;
 
+import io.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import io.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import lombok.Setter;
-import org.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -9,9 +10,8 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
-import static org.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
-import static org.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
+import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
+import static io.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
@@ -51,7 +51,7 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
 
     List<String> commandLine = new ArrayList<>(getCommandLine());
     commandLine.set(commandLine.size() - 2, "<secret>");
-    logCommand(getLogger(), commandLine);
+    LogUtils.logCommand(getLogger(), commandLine);
 
     super.exec();
   }
