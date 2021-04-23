@@ -34,8 +34,8 @@ public class DockerPushTask extends AbstractExecTask<DockerPushTask> {
 
     String component = ensureTagName(project, tagName);
 
+    push(dockerCommand, buildRemoteRepoTag(repo, namespace, component));
     push(dockerCommand, buildRemoteRepoTag(repo, namespace, component, version));
-    push(dockerCommand, buildRemoteRepoTag(repo, namespace, component, "latest"));
   }
 
   private void push(String dockerCommand, String tagName) {

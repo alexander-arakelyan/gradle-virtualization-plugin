@@ -4,6 +4,7 @@ import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtens
 import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerBuildTask;
 import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerLoginTask;
 import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerPushTask;
+import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerRunTask;
 import com.github.bambrikii.gradle.virtualization.plugin.tasks.DockerTagTask;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Project;
@@ -35,5 +36,6 @@ public class DockerTaskUtils {
     tasks.register("dockerBuild", DockerBuildTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
     tasks.register("dockerTag", DockerTagTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
     tasks.register("dockerPush", DockerPushTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
+    tasks.register("dockerRun", DockerRunTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
   }
 }

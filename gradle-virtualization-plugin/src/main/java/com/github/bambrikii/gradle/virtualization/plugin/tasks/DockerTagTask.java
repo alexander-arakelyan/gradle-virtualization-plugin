@@ -12,6 +12,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildLocalTag;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildRemoteRepoTag;
+
 @Setter
 public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
   public DockerTagTask() {
@@ -33,8 +36,12 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
     String imageId = DockerUtils.readImageId(project, dockerBuildDir);
     String component = DockerUtils.ensureTagName(project, tagName);
 
-    tag(dockerCommand, imageId, DockerUtils.buildRemoteRepoTag(repo, namespace, component, version));
-    tag(dockerCommand, imageId, DockerUtils.buildRemoteRepoTag(repo, namespace, component, "latest"));
+
+    tag(dockerCommand, imageId, buildLocalTag(namespace, component));
+    tag(dockerCommand, imageId, buildLocalTag(namespace, component, version));
+
+    tag(dockerCommand, imageId, buildRemoteRepoTag(repo, namespace, component));
+    tag(dockerCommand, imageId, buildRemoteRepoTag(repo, namespace, component, version));
   }
 
   private String commit(String dockerCommand, String imageId, String component, final String version) {

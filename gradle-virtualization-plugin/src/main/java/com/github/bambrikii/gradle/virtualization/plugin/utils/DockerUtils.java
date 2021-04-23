@@ -16,6 +16,7 @@ import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 public class DockerUtils {
   public static final String DEFAULT_DOCKER_COMMAND = "docker";
   public static final String DOCKER_IID = "docker.iid";
+  public static final String LATEST = "latest";
 
   private DockerUtils() {
   }
@@ -76,6 +77,18 @@ public class DockerUtils {
             ? project.getName()
             : tagName;
     return tagName2;
+  }
+
+  public static String buildLocalTag(String namespace, String component) {
+    return buildLocalTag(namespace, component, LATEST);
+  }
+
+  public static String buildLocalTag(String namespace, String component, String version) {
+    return namespace + "/" + component + ":" + version;
+  }
+
+  public static String buildRemoteRepoTag(String repo, String namespace, String component) {
+    return buildRemoteRepoTag(repo, namespace, component, LATEST);
   }
 
   public static String buildRemoteRepoTag(String repo, String namespace, String component, String version) {

@@ -36,6 +36,24 @@ if (pluginExists) {
         username = "${dockerUsername}"
         password = "${dockerPassword}"
         dockerBuildDir = buildDir
+        mounts {
+            mount {
+                host = "/home"
+                container = "/temp1"
+                options = "z"
+            }
+            mount {
+                host = "/usr/bin"
+                container = "/temp2"
+                options = "z"
+            }
+        }
+        envs {
+            env {
+                name = "ENV1"
+                value = "ENV1-VAL"
+            }
+        }
     }
 } else {
     logger.lifecycle("No plugin JAR found")
