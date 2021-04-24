@@ -34,9 +34,10 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
     List<String> args = new ArrayList<>();
     args.add(dockerCommand);
     args.add("run");
-    args.add(DockerUtils.buildLocalTag(namespace, component));
     addMounts(args, ext.getMounts());
     addEnvs(args, ext.getEnvs());
+    addName(project, args);
+    addImageId(namespace, component, args);
 
     commandLine(args);
 
@@ -45,20 +46,35 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
     super.exec();
   }
 
+  private void addImageId(String namespace, String component, List<String> args) {
+    args.add(DockerUtils.buildLocalTag(namespace, component));
+  }
+
+  private void addName(Project project, List<String> args) {
+    args.add("--name");
+    args.add(project.getName());
+  }
+
   private void addMounts(List<String> args, List<Mount> mounts) {
     if (mounts == null || mounts.isEmpty()) {
       return;
     }
     for (Mount mount : mounts) {
       args.add("-v");
-      StringBuilder sb = new StringBuilder();
-      if (!isBlank(mount.getHost())) {
-        sb.append(mount.getHost()).append(":");
-      }
-      sb.append(mount.getContainer());
+      StringBuilder sb = new StringBuilder()
+              .append("\"")
+              .append("type=bind")
+              .append(",")
+              .append("source=")
+              .append(mount.getHost())
+              .append(",")
+              .append("destination=")
+              .append(mount.getContainer());
       if (!isBlank(mount.getOptions())) {
-        sb.append(":").append(mount.getOptions());
+        sb
+                .append(mount.getOptions());
       }
+      sb.append("\"");
       args.add(sb.toString());
     }
   }

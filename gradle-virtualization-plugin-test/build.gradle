@@ -40,12 +40,12 @@ if (pluginExists) {
             mount {
                 host = "/home"
                 container = "/temp1"
-                options = "z"
+//                options = "z"
             }
             mount {
                 host = "/usr/bin"
                 container = "/temp2"
-                options = "z"
+//                options = "z"
             }
         }
         envs {
