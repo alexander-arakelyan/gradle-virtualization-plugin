@@ -24,4 +24,4 @@
     1. `mounts` -> `host` + `container`
     1. `envs` -> `name` + `value`
 
-Please, find sample configuration in [build.gradle](gradle-virtualization-plugin-test/build.gradle#L31) file of gradle-virtualization-plugin-test project.
+Please, find sample configuration in [build.gradle](gradle-virtualization-plugin-test/build.gradle#L31-L57) file of gradle-virtualization-plugin-test project.
