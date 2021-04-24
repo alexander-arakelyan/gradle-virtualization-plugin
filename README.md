@@ -1,4 +1,4 @@
-# Gradle Container Plugin
+# Gradle Virtualization Plugin
 
 ## Commands
 
@@ -6,6 +6,8 @@
 1. `dockerBuild` -
 1. `dockerTag` -
 1. `dockerPush` -
+1. `dockerRun` -
+1. `dockerContainerRm` -
 
 ## Configuration
 
@@ -19,3 +21,7 @@
     1. `buildDir` - optional, by default project dir will be used to source files
     1. `tagName` - TODO:
     1. `imageName` - TODO:
+    1. `mounts` -> `host` + `container`
+    1. `envs` -> `name` + `value`
+
+Please, find sample configuration in [build.gradle](build.gradle#L31) file.
