@@ -29,23 +29,25 @@ if (pluginExists) {
     }
 
     docker {
-        dockerFile = "src/main/docker/Dockerfile"
-        dockerCommand = "docker"
-        repo = "${dockerRepo}"
+        dockerFile = "src/main/docker/Dockerfile" // optional, Dockerfile by default
+        dockerCommand = "docker" // optional, "docker" by default
+        repo = "${dockerRepo}" // repository to push images in
         repoNamespace = "${dockerNamespace}"
         username = "${dockerUsername}"
         password = "${dockerPassword}"
-        dockerBuildDir = buildDir
+        dockerBuildDir = buildDir // optional, ${project.buildDir} will be used by default
+        tagName = "test-virtualization-image" // optional, ${project.name} will be used by default
+        containerName = "test-virtualization-container" // optional, ${project.name} will be used by default
         mounts {
             mount {
                 host = "/home"
                 container = "/temp1"
-//                options = "z"
+                options = "z"
             }
             mount {
                 host = "/usr/bin"
                 container = "/temp2"
-//                options = "z"
+                options = "z"
             }
         }
         envs {

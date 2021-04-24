@@ -10,8 +10,8 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerTaskUtils.addDockerCommand;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.extractRepo;
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.getDockerCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
@@ -26,25 +26,11 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
     String version = project.getVersion().toString();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = getDockerCommand(ext.getDockerCommand());
-    String username = ext.getUsername();
-    String password = ext.getPassword();
-    String repo = extractRepo(ext, version);
-
-    if (isBlank(repo)) {
-      throw new IllegalArgumentException("Docker repo required!");
-    }
-
     List<String> args = new ArrayList<>();
-    args.add(dockerCommand);
+    addDockerCommand(args, ext);
     args.add("login");
-    if (!isBlank(username)) {
-      args.add("--username");
-      args.add(username);
-      args.add("--password");
-      args.add(password);
-    }
-    args.add(repo);
+    addCredentials(args, ext);
+    addRepo(args, version, ext);
 
     commandLine(args);
 
@@ -53,5 +39,27 @@ public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
     LogUtils.logCommand(getLogger(), commandLine);
 
     super.exec();
+  }
+
+  private void addCredentials(List<String> args, DockerExtension ext) {
+    String username = ext.getUsername();
+    String password = ext.getPassword();
+
+    if (isBlank(username)) {
+      return;
+    }
+    args.add("--username");
+    args.add(username);
+    args.add("--password");
+    args.add(password);
+  }
+
+  private void addRepo(List<String> args, String version, DockerExtension ext) {
+    String repo = extractRepo(ext, version);
+
+    if (isBlank(repo)) {
+      throw new IllegalArgumentException("Docker repo required!");
+    }
+    args.add(repo);
   }
 }

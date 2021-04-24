@@ -1,8 +1,6 @@
 package com.github.bambrikii.gradle.virtualization.plugin.tasks;
 
 import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
-import com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -10,9 +8,13 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DockerContainerRemoveTask extends AbstractExecTask<DockerContainerRemoveTask> {
-  public DockerContainerRemoveTask() {
-    super(DockerContainerRemoveTask.class);
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerTaskUtils.addDockerCommand;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildContainerName;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
+
+public class DockerContainerRmTask extends AbstractExecTask<DockerContainerRmTask> {
+  public DockerContainerRmTask() {
+    super(DockerContainerRmTask.class);
   }
 
   @TaskAction
@@ -20,19 +22,17 @@ public class DockerContainerRemoveTask extends AbstractExecTask<DockerContainerR
     Project project = getProject();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = DockerUtils.getDockerCommand(ext.getDockerCommand());
 
     List<String> args = new ArrayList<>();
-    args.add(dockerCommand);
+    addDockerCommand(args, ext);
     args.add("container");
     args.add("rm");
-    args.add(project.getName());
+    args.add(buildContainerName(project, ext));
 
     commandLine(args);
 
-    LogUtils.logCommand(getLogger(), getCommandLine());
+    logCommand(getLogger(), getCommandLine());
 
     super.exec();
   }
-
 }

@@ -12,6 +12,8 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerTaskUtils.addDockerCommand;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildContainerName;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
@@ -25,19 +27,14 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
     String version = project.getVersion().toString();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = DockerUtils.getDockerCommand(ext.getDockerCommand());
-
-    String tagName = ext.getTagName();
-    String namespace = ext.getRepoNamespace();
-    String component = DockerUtils.ensureTagName(project, tagName);
 
     List<String> args = new ArrayList<>();
-    args.add(dockerCommand);
+    addDockerCommand(args, ext);
     args.add("run");
-    addMounts(args, ext.getMounts());
-    addEnvs(args, ext.getEnvs());
-    addName(project, args);
-    addImageId(namespace, component, args);
+    addMounts(args, ext);
+    addEnvs(args, ext);
+    addContainerName(args, project, ext);
+    addImageId(args, project, ext);
 
     commandLine(args);
 
@@ -46,16 +43,8 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
     super.exec();
   }
 
-  private void addImageId(String namespace, String component, List<String> args) {
-    args.add(DockerUtils.buildLocalTag(namespace, component));
-  }
-
-  private void addName(Project project, List<String> args) {
-    args.add("--name");
-    args.add(project.getName());
-  }
-
-  private void addMounts(List<String> args, List<Mount> mounts) {
+  private void addMounts(List<String> args, DockerExtension ext) {
+    List<Mount> mounts = ext.getMounts();
     if (mounts == null || mounts.isEmpty()) {
       return;
     }
@@ -63,23 +52,19 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
       args.add("-v");
       StringBuilder sb = new StringBuilder()
               .append("\"")
-              .append("type=bind")
-              .append(",")
-              .append("source=")
               .append(mount.getHost())
               .append(",")
-              .append("destination=")
               .append(mount.getContainer());
       if (!isBlank(mount.getOptions())) {
-        sb
-                .append(mount.getOptions());
+        sb.append(",").append(mount.getOptions());
       }
       sb.append("\"");
       args.add(sb.toString());
     }
   }
 
-  private void addEnvs(List<String> args, List<Env> envs) {
+  private void addEnvs(List<String> args, DockerExtension ext) {
+    List<Env> envs = ext.getEnvs();
     if (envs == null || envs.isEmpty()) {
       return;
     }
@@ -93,5 +78,19 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
               .append("\"");
       args.add(sb.toString());
     }
+  }
+
+  private void addContainerName(List<String> args, Project project, DockerExtension ext) {
+    args.add("--name");
+    args.add(buildContainerName(project, ext));
+  }
+
+  private void addImageId(List<String> args, Project project, DockerExtension ext) {
+    String tagName = ext.getTagName();
+    String namespace = ext.getRepoNamespace();
+    String component = DockerUtils.ensureTagName(project, tagName);
+    String localTagName = DockerUtils.buildLocalTag(namespace, component);
+
+    args.add(localTagName);
   }
 }

@@ -35,6 +35,8 @@ public class DockerExtension {
   @Inject
   private String tagName;
   @Inject
+  private String containerName;
+  @Inject
   private List<Mount> mounts = new ArrayList<>();
   @Inject
   private List<Env> envs = new ArrayList<>();

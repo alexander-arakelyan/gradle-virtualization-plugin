@@ -21,11 +21,13 @@ public class DockerUtils {
   private DockerUtils() {
   }
 
-  public static String getDockerCommand(String command) {
+  public static String getDockerCommand(DockerExtension ext) {
+    String command = ext.getDockerCommand();
     return isBlank(command) ? DEFAULT_DOCKER_COMMAND : command;
   }
 
-  public static Path ensureDockerSrcDir(Project project, String dockerSrcDir) {
+  public static Path ensureDockerSrcDir(Project project, DockerExtension ext) {
+    String dockerSrcDir = ext.getDockerSrcDir();
     Path path = isBlank(dockerSrcDir)
             ? Paths.get(project.getProjectDir().getAbsolutePath())
             : Paths.get(dockerSrcDir).toAbsolutePath();
@@ -34,7 +36,8 @@ public class DockerUtils {
     return path;
   }
 
-  public static Path ensureDockerBuildDir(Project project, String dockerBuildDir) {
+  public static Path ensureDockerBuildDir(Project project, DockerExtension ext) {
+    String dockerBuildDir = ext.getDockerBuildDir();
     Path path = isBlank(dockerBuildDir)
             ? Paths.get(project.getBuildDir().getAbsolutePath(), "docker") // create docker default build dir
             : Paths.get(dockerBuildDir).toAbsolutePath() // create docker custom build dir
@@ -73,10 +76,9 @@ public class DockerUtils {
   }
 
   public static String ensureTagName(Project project, String tagName) {
-    String tagName2 = isBlank(tagName)
-            ? project.getName()
-            : tagName;
-    return tagName2;
+    return !isBlank(tagName)
+            ? tagName
+            : project.getName();
   }
 
   public static String buildLocalTag(String namespace, String component) {
@@ -105,5 +107,12 @@ public class DockerUtils {
 
   public static boolean isSnapshotVersion(String version) {
     return version.endsWith("-SNAPSHOT");
+  }
+
+  public static String buildContainerName(Project project, DockerExtension ext) {
+    String containerName = ext.getContainerName();
+    return !isBlank(containerName)
+            ? containerName
+            : project.getName();
   }
 }

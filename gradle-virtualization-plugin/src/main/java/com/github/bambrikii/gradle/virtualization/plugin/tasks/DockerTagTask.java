@@ -27,15 +27,16 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
     String version = project.getVersion().toString();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = DockerUtils.getDockerCommand(ext.getDockerCommand());
-    Path dockerBuildDir = DockerUtils.ensureDockerBuildDir(project, ext.getDockerBuildDir());
-    String tagName = ext.getTagName();
-    String repo = DockerUtils.extractRepo(ext, version);
-    String namespace = ext.getRepoNamespace();
+    String dockerCommand = DockerUtils.getDockerCommand(ext);
 
+    String tagName = ext.getTagName();
+
+    Path dockerBuildDir = DockerUtils.ensureDockerBuildDir(project, ext);
     String imageId = DockerUtils.readImageId(project, dockerBuildDir);
     String component = DockerUtils.ensureTagName(project, tagName);
 
+    String repo = DockerUtils.extractRepo(ext, version);
+    String namespace = ext.getRepoNamespace();
 
     tag(dockerCommand, imageId, buildLocalTag(namespace, component));
     tag(dockerCommand, imageId, buildLocalTag(namespace, component, version));

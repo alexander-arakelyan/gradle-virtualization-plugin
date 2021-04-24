@@ -27,11 +27,11 @@ public class DockerPushTask extends AbstractExecTask<DockerPushTask> {
     String version = project.getVersion().toString();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    String dockerCommand = DockerUtils.getDockerCommand(ext.getDockerCommand());
+    String dockerCommand = DockerUtils.getDockerCommand(ext);
+
     String repo = extractRepo(ext, version);
     String namespace = ext.getRepoNamespace();
     String tagName = ext.getTagName();
-
     String component = ensureTagName(project, tagName);
 
     push(dockerCommand, buildRemoteRepoTag(repo, namespace, component));
