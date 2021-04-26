@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.github.bambrikii.gradle.virtualization.plugin.kube.utils.KubernetesUtils.buildKubeCommand;
-import static com.github.bambrikii.gradle.virtualization.plugin.kube.utils.KubernetesUtils.buildSecretName;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
@@ -31,7 +30,7 @@ public class KubernetesCreateSecretTask extends AbstractExecTask<KubernetesCreat
   private void createSecret(KubernetesExtension ext) {
     List<String> args = Arrays.asList(
             buildKubeCommand(ext),
-            "create", "secret", "generic", buildSecretName(ext),
+            "create", "secret", "generic", "regcred",
             "--from-file=.dockerconfigjson=" + buildDockerConfigFileName(ext),
             "--type=kubernetes.io/dockerconfigjson"
     );

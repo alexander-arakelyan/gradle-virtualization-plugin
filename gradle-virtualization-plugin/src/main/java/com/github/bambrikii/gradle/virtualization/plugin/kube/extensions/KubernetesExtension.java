@@ -20,6 +20,4 @@ public class KubernetesExtension {
   private String resource;
   @Inject
   private String dockerConfig;
-  @Inject
-  private String dockerSecretName;
 }

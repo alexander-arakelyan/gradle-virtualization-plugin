@@ -60,7 +60,6 @@
     1. `resource` - yaml configuration file
     1. `dockerConfig` - docker JSON configuration file location. Might include remote repository authentication tokens,
        etc. Optional, `$USER_HOME/.docker/config.json` by default
-    1. `dockerSecretName` - custom docker secret name. Optional,  
 
 Please, find sample configuration in [build.gradle](gradle-virtualization-plugin-test/build.gradle#L31-L57) file of
 gradle-virtualization-plugin-test project.
