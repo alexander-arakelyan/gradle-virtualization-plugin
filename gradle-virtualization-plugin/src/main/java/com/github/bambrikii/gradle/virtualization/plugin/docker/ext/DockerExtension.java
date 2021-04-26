@@ -1,4 +1,4 @@
-package com.github.bambrikii.gradle.virtualization.plugin.extensions;
+package com.github.bambrikii.gradle.virtualization.plugin.docker.ext;
 
 import groovy.lang.Closure;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class DockerExtension {
   @Inject
   private String password;
   @Inject
-  private String repoNamespace;
+  private String namespace;
   @Inject
   private String dockerFile;
   @Inject

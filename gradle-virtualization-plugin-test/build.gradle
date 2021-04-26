@@ -25,14 +25,16 @@ if (pluginExists) {
 if (pluginExists) {
     logger.lifecycle("Plugin JAR found - config")
     kubernetes {
-
+        kubernetesClusterCommand = "minikube" // optional
+        kubernetesCommand = "kubectl" // optional
+        resource = "src/main/kubernetes/my-env.yaml"
     }
 
     docker {
         dockerFile = "src/main/docker/Dockerfile" // optional, Dockerfile by default
         dockerCommand = "docker" // optional, "docker" by default
         repo = "${dockerRepo}" // repository to push images in
-        repoNamespace = "${dockerNamespace}"
+        namespace = "${dockerNamespace}"
         username = "${dockerUsername}"
         password = "${dockerPassword}"
         dockerBuildDir = buildDir // optional, ${project.buildDir} will be used by default

@@ -1,6 +1,6 @@
-package com.github.bambrikii.gradle.virtualization.plugin.tasks;
+package com.github.bambrikii.gradle.virtualization.plugin.docker.tasks;
 
-import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerExtension;
 import lombok.Setter;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
@@ -10,10 +10,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerTaskUtils.addDockerCommand;
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.DOCKER_IID;
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerBuildDir;
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.ensureDockerSrcDir;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.addDockerCommand;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils.DOCKER_IID;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils.ensureDockerBuildDir;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils.ensureDockerSrcDir;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
@@ -27,7 +27,6 @@ public class DockerBuildTask extends AbstractExecTask<DockerBuildTask> {
   public void exec() {
     Project project = getProject();
     DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
-
 
     List<String> args = new ArrayList<>();
 

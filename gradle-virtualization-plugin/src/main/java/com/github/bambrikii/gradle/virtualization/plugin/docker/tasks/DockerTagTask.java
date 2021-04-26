@@ -1,7 +1,7 @@
-package com.github.bambrikii.gradle.virtualization.plugin.tasks;
+package com.github.bambrikii.gradle.virtualization.plugin.docker.tasks;
 
-import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
-import com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils;
 import com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import lombok.Setter;
 import org.gradle.api.Project;
@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildLocalTag;
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildRemoteRepoTag;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils.buildLocalTag;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils.buildRemoteRepoTag;
 
 @Setter
 public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
@@ -36,7 +36,7 @@ public class DockerTagTask extends AbstractExecTask<DockerTagTask> {
     String component = DockerUtils.ensureTagName(project, tagName);
 
     String repo = DockerUtils.extractRepo(ext, version);
-    String namespace = ext.getRepoNamespace();
+    String namespace = ext.getNamespace();
 
     tag(dockerCommand, imageId, buildLocalTag(namespace, component));
     tag(dockerCommand, imageId, buildLocalTag(namespace, component, version));

@@ -1,6 +1,6 @@
-package com.github.bambrikii.gradle.virtualization.plugin.tasks;
+package com.github.bambrikii.gradle.virtualization.plugin.docker.tasks;
 
-import com.github.bambrikii.gradle.virtualization.plugin.extensions.DockerExtension;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerExtension;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -8,8 +8,8 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerTaskUtils.addDockerCommand;
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.DockerUtils.buildContainerName;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.addDockerCommand;
+import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils.buildContainerName;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 
 public class DockerContainerRmTask extends AbstractExecTask<DockerContainerRmTask> {

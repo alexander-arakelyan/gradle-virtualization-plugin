@@ -1,4 +1,4 @@
-package com.github.bambrikii.gradle.virtualization.plugin.extensions;
+package com.github.bambrikii.gradle.virtualization.plugin.docker.ext;
 
 import lombok.Getter;
 import lombok.Setter;
