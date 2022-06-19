@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.IOUtils.PATH_SEPARATOR;
+
 public class KubernetesUtils {
     public static final String DEPLOYMENT_FILE = "deployment.yaml";
     public static final String DEFAULT_NAMESPACE = "default";
@@ -40,7 +42,7 @@ public class KubernetesUtils {
 
     public static String getKubernetesDefaultFile(File workingDir, KubernetesExtension ext) {
         String resource = ext.getResource();
-        return StringUtils.isEmpty(resource) ? workingDir + File.pathSeparator + DEPLOYMENT_FILE : resource;
+        return StringUtils.isEmpty(resource) ? getKubernetesFilesPath(workingDir) + PATH_SEPARATOR + DEPLOYMENT_FILE : resource;
     }
 
     public static String getDefaultNamespace(KubernetesExtension ext) {

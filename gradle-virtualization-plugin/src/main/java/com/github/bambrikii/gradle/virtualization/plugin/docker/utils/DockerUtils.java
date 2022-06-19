@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.IOUtils.PATH_SEPARATOR;
 import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 public class DockerUtils {
@@ -121,12 +122,12 @@ public class DockerUtils {
         return isBlank(containerName) ? project.getName() : containerName;
     }
 
-    public static Path getDockerPath(File workingDir) {
+    public static Path getDockerFilesPath(File workingDir) {
         return Paths.get(workingDir.getAbsolutePath(), "/src/main/docker");
     }
 
     public static String getDockerFile(File workingDir, DockerExtension ext) {
         String dockerFile = ext.getDockerFile();
-        return isBlank(dockerFile) ? getDockerPath(workingDir) + File.pathSeparator + DOCKERFILE : ext.getDockerFile();
+        return isBlank(dockerFile) ? getDockerFilesPath(workingDir) + PATH_SEPARATOR + DOCKERFILE : ext.getDockerFile();
     }
 }

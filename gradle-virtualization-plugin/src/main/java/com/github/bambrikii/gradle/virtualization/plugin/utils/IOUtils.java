@@ -11,6 +11,11 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 
 public class IOUtils {
+    private IOUtils() {
+    }
+
+    public static final String PATH_SEPARATOR = "/";
+
     public static String toString(InputStream is) throws IOException {
         try (InputStreamReader isr = new InputStreamReader(is)) {
             return toString(isr);
