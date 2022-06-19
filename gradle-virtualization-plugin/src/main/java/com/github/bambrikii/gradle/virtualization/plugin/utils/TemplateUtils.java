@@ -22,18 +22,16 @@ public class TemplateUtils {
     }
 
     public static void prepareFile(
-            Path path,
-            String name,
+            String targetFileName,
             InputStream inputStream,
             Logger logger,
             Function<String, String> replace
     ) throws IOException {
-        String fileName = path.toString() + "/" + name;
-        File file = new File(fileName);
+        File file = new File(targetFileName);
         if (file.exists()) {
             return;
         }
-        logger.lifecycle("Creating file " + fileName);
+        logger.lifecycle("Creating file " + targetFileName);
 
         String template = IOUtils.toString(inputStream);
         IOUtils.toFile(replace.apply(template), file);

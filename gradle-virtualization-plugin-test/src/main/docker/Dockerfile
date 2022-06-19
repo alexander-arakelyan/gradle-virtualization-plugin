@@ -1,7 +1,7 @@
 FROM openjdk:latest
 
-WORKDIR /root
-COPY src/main/bash/myscript.sh /root/
-COPY src/main/docker/Dockerfile /root/
+WORKDIR /app
+COPY src/main/bash/myscript.sh /app/
+COPY src/main/docker/Dockerfile /app/
 
 CMD ./myscript.sh

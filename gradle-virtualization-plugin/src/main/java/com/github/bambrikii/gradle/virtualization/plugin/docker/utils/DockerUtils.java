@@ -19,6 +19,7 @@ public class DockerUtils {
     public static final String DEFAULT_DOCKER_COMMAND = "docker";
     public static final String DOCKER_IID = "docker.iid";
     public static final String LATEST = "latest";
+    public static final String DOCKERFILE = "Dockerfile";
 
     private DockerUtils() {
     }
@@ -117,8 +118,15 @@ public class DockerUtils {
 
     public static String buildContainerName(Project project, DockerExtension ext) {
         String containerName = ext.getContainerName();
-        return !isBlank(containerName)
-                ? containerName
-                : project.getName();
+        return isBlank(containerName) ? project.getName() : containerName;
+    }
+
+    public static Path getDockerPath(File workingDir) {
+        return Paths.get(workingDir.getAbsolutePath(), "/src/main/docker");
+    }
+
+    public static String getDockerFile(File workingDir, DockerExtension ext) {
+        String dockerFile = ext.getDockerFile();
+        return isBlank(dockerFile) ? getDockerPath(workingDir) + File.pathSeparator + DOCKERFILE : ext.getDockerFile();
     }
 }

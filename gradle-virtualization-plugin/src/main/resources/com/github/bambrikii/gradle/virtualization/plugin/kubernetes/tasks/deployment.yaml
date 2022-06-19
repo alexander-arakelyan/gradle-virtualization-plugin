@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: ${app-name}
-          image: ${app-namespace}${app-name}:${app-version}
+          image: ${app-namespace}/${app-name}:${app-version}
           ports:
             - containerPort: 80
