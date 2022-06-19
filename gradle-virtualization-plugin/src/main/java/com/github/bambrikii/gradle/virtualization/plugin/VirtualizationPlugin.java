@@ -8,8 +8,8 @@ import org.gradle.api.tasks.TaskContainer;
 
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.registerDockerExtension;
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.registerDockerTasks;
-import static com.github.bambrikii.gradle.virtualization.plugin.kube.utils.KubernetesTaskUtils.registerKubeExtension;
-import static com.github.bambrikii.gradle.virtualization.plugin.kube.utils.KubernetesTaskUtils.registerKubeTasks;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.registerKubeExtension;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.registerKubeTasks;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.registerVirtualizationExtension;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.registerVirtualizationTasks;
 

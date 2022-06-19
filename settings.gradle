@@ -1,4 +1,4 @@
-rootProject.name = 'gradle-container-plugin'
+rootProject.name = 'gradle-virtualization-plugin'
 
 include "gradle-virtualization-plugin"
 include "gradle-virtualization-plugin-test"

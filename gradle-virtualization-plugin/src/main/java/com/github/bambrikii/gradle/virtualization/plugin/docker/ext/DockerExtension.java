@@ -19,6 +19,8 @@ public class DockerExtension {
   @Inject
   private String snapshotRepo;
   @Inject
+  private List<DockerRegistry> repositories = new ArrayList<>();
+  @Inject
   private String username;
   @Inject
   private String password;
@@ -37,27 +39,31 @@ public class DockerExtension {
   @Inject
   private String containerName;
   @Inject
-  private List<Mount> mounts = new ArrayList<>();
+  private List<DockerMount> mounts = new ArrayList<>();
   @Inject
-  private List<Env> envs = new ArrayList<>();
+  private List<DockerEnvVar> envs = new ArrayList<>();
 
-  public void run(Closure<ArrayList<Env>> closure) {
-    ConfigureUtil.configure(closure, envs);
+  public void repositories(Closure<ArrayList<DockerRegistry>> closure) {
+    ConfigureUtil.configure(closure, repositories);
   }
 
-  public void mounts(Closure<ArrayList<Mount>> closure) {
+  public void repository(Closure<DockerRegistry> closure) {
+    repositories.add(ConfigureUtil.configure(closure, new DockerRegistry()));
+  }
+
+  public void mounts(Closure<ArrayList<DockerMount>> closure) {
     ConfigureUtil.configure(closure, mounts);
   }
 
-  public void mount(Closure<Mount> closure) {
-    mounts.add(ConfigureUtil.configure(closure, new Mount()));
+  public void mount(Closure<DockerMount> closure) {
+    mounts.add(ConfigureUtil.configure(closure, new DockerMount()));
   }
 
-  public void envs(Closure<ArrayList<Env>> closure) {
+  public void envs(Closure<ArrayList<DockerEnvVar>> closure) {
     ConfigureUtil.configure(closure, envs);
   }
 
-  public void env(Closure<ArrayList<Env>> closure) {
-    envs.add(ConfigureUtil.configure(closure, new Env()));
+  public void env(Closure<ArrayList<DockerEnvVar>> closure) {
+    envs.add(ConfigureUtil.configure(closure, new DockerEnvVar()));
   }
 }

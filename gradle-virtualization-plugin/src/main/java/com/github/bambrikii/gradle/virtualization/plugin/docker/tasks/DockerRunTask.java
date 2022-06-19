@@ -1,8 +1,8 @@
 package com.github.bambrikii.gradle.virtualization.plugin.docker.tasks;
 
 import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerExtension;
-import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.Env;
-import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.Mount;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerEnvVar;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerMount;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerUtils;
 import com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils;
 import org.gradle.api.Project;
@@ -44,11 +44,11 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
   }
 
   private void addMounts(List<String> args, DockerExtension ext) {
-    List<Mount> mounts = ext.getMounts();
+    List<DockerMount> mounts = ext.getMounts();
     if (mounts == null || mounts.isEmpty()) {
       return;
     }
-    for (Mount mount : mounts) {
+    for (DockerMount mount : mounts) {
       args.add("-v");
       StringBuilder sb = new StringBuilder()
               .append("\"")
@@ -64,11 +64,11 @@ public class DockerRunTask extends AbstractExecTask<DockerRunTask> {
   }
 
   private void addEnvs(List<String> args, DockerExtension ext) {
-    List<Env> envs = ext.getEnvs();
+    List<DockerEnvVar> envs = ext.getEnvs();
     if (envs == null || envs.isEmpty()) {
       return;
     }
-    for (Env env : envs) {
+    for (DockerEnvVar env : envs) {
       args.add("-e");
       StringBuilder sb = new StringBuilder()
               .append("\"")

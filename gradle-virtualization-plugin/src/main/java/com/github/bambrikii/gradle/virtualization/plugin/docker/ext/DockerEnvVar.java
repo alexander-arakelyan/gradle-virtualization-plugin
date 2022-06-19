@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Mount {
-  private String host;
-  private String container;
-  private String options;
+public class DockerEnvVar {
+  private String name;
+  private String value;
 }

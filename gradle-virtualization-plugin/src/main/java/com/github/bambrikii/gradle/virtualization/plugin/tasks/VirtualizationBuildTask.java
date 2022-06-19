@@ -7,8 +7,8 @@ import org.gradle.api.tasks.TaskContainer;
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.DOCKER_BUILD;
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.DOCKER_LOGIN;
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.DOCKER_TAG;
-import static com.github.bambrikii.gradle.virtualization.plugin.kube.utils.KubernetesTaskUtils.KUBERNETES_CREATE_SECRET;
-import static com.github.bambrikii.gradle.virtualization.plugin.kube.utils.KubernetesTaskUtils.KUBERNETES_DELETE_SECRET;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_CREATE_SECRET;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_SECRET;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.execTask;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.tryExecTask;
 
