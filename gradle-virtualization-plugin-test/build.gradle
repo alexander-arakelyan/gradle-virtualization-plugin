@@ -26,7 +26,9 @@ if (pluginExists) {
     kubernetes {
         kubernetesClusterCommand = "minikube" // optional
         kubernetesCommand = "kubectl" // optional
-        resource = "${projectDir}/src/main/kubernetes/my-env.yaml"
+        resources = [
+                "${projectDir}/src/main/kubernetes/my-env.yaml"
+        ]
         namespace = "${dockerNamespace}"
     }
 

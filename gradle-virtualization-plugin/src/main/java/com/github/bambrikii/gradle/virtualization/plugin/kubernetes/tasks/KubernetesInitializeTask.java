@@ -11,33 +11,33 @@ import org.gradle.api.tasks.TaskAction;
 import java.nio.file.Path;
 
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesUtils.DEPLOYMENT_FILE;
-import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesUtils.getKubernetesDefaultFile;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesUtils.KUBERNETES_DIR;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesUtils.SERVICE_FILE;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.TemplateUtils.prepareDirs;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.TemplateUtils.prepareFile;
 
-public class KubernetesInitializeDeploymentTask extends AbstractExecTask<KubernetesInitializeDeploymentTask> {
-    public KubernetesInitializeDeploymentTask() {
-        super(KubernetesInitializeDeploymentTask.class);
+public class KubernetesInitializeTask extends AbstractExecTask<KubernetesInitializeTask> {
+    public KubernetesInitializeTask() {
+        super(KubernetesInitializeTask.class);
     }
 
     @SneakyThrows
     @TaskAction
     public void exec() {
-        Project project = getProject();
-        Path path = KubernetesUtils.getKubernetesFilesPath(getWorkingDir());
+        Path path = KubernetesUtils.getKubernetesDir(getWorkingDir());
         Logger logger = getLogger();
-        KubernetesExtension ext = project.getExtensions().getByType(KubernetesExtension.class);
 
-        prepareDirs(path, logger);
-        prepareFile(
-                getKubernetesDefaultFile(getWorkingDir(), ext),
-                KubernetesInitializeDeploymentTask.class.getResourceAsStream(DEPLOYMENT_FILE),
-                logger,
-                template -> createNamespace(project, ext, template)
-        );
+        if (!prepareDirs(path, logger)) {
+            return;
+        }
+
+        prepareFile(this, KubernetesInitializeTask.class, KUBERNETES_DIR, DEPLOYMENT_FILE, this::prepareTemplate);
+        prepareFile(this, KubernetesInitializeTask.class, KUBERNETES_DIR, SERVICE_FILE, this::prepareTemplate);
     }
 
-    private String createNamespace(Project project, KubernetesExtension ext, String template) {
+    private String prepareTemplate(String template) {
+        Project project = getProject();
+        KubernetesExtension ext = project.getExtensions().getByType(KubernetesExtension.class);
         return template
                 .replaceAll("\\$\\{app-namespace}", KubernetesUtils.getDefaultNamespace(ext))
                 .replaceAll("\\$\\{app-name}", project.getName())

@@ -23,7 +23,7 @@
     1. `kubernetesApply`
 4. `virtializationInitialze` - includes:
    1. `dockerInitializeDockerfile`
-   2. `kubernetesInitializeDeployment`
+   2. `kubernetesInitialize`
 
 ### Docker Commands
 
@@ -41,7 +41,9 @@
 2. `kubernetesCreateSecret` - executes `kubectl create secret`
 3. `kubernetesGetPods` - executes `minikube kubectl -- get po - A`
 4. `kubernetesApply` - executes `kubectl apply`
-5. `kubectlInitializeDeployment` - generate sample `src/main/kubernetes/deployment.yaml` file
+5. `kubectlInitialize` - generate sample files:
+   1. `src/main/kubernetes/deployment.yaml`
+   2. `src/main/kubernetes/service.yaml`
 
 ## Configuration
 

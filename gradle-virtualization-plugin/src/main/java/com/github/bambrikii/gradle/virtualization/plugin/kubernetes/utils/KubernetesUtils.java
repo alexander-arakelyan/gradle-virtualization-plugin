@@ -11,7 +11,9 @@ import java.util.List;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.IOUtils.PATH_SEPARATOR;
 
 public class KubernetesUtils {
+    public static final String KUBERNETES_DIR = "src/main/kubernetes";
     public static final String DEPLOYMENT_FILE = "deployment.yaml";
+    public static final String SERVICE_FILE = "service.yaml";
     public static final String DEFAULT_NAMESPACE = "default";
 
     private KubernetesUtils() {
@@ -36,13 +38,8 @@ public class KubernetesUtils {
         args.add(namespace);
     }
 
-    public static Path getKubernetesFilesPath(File workingDir) {
-        return Paths.get(workingDir.getAbsolutePath(), "/src/main/kubernetes");
-    }
-
-    public static String getKubernetesDefaultFile(File workingDir, KubernetesExtension ext) {
-        String resource = ext.getResource();
-        return StringUtils.isEmpty(resource) ? getKubernetesFilesPath(workingDir) + PATH_SEPARATOR + DEPLOYMENT_FILE : resource;
+    public static Path getKubernetesDir(File workingDir) {
+        return Paths.get(workingDir.getAbsolutePath(), KUBERNETES_DIR);
     }
 
     public static String getDefaultNamespace(KubernetesExtension ext) {
