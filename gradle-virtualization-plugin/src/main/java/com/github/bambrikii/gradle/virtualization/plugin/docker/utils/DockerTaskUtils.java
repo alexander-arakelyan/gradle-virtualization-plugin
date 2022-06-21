@@ -3,7 +3,7 @@ package com.github.bambrikii.gradle.virtualization.plugin.docker.utils;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerExtension;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerBuildTask;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerContainerRmTask;
-import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerInitializeDockerFileTask;
+import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerInitializeTask;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerLoginTask;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerPushTask;
 import com.github.bambrikii.gradle.virtualization.plugin.docker.tasks.DockerRunTask;
@@ -24,7 +24,7 @@ public class DockerTaskUtils {
     public static final String DOCKER_PUSH = "dockerPush";
     public static final String DOCKER_RUN = "dockerRun";
     public static final String DOCKER_CONTAINER_RM = "dockerContainerRm";
-    public static final String DOCKER_INITIALIZE_DOCKERFILE = "dockerInitializeDockerfile";
+    public static final String DOCKER_INITIALIZE = "dockerInitialize";
 
     private DockerTaskUtils() {
     }
@@ -40,7 +40,7 @@ public class DockerTaskUtils {
         tasks.register(DOCKER_PUSH, DockerPushTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
         tasks.register(DOCKER_RUN, DockerRunTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
         tasks.register(DOCKER_CONTAINER_RM, DockerContainerRmTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
-        tasks.register(DOCKER_INITIALIZE_DOCKERFILE, DockerInitializeDockerFileTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
+        tasks.register(DOCKER_INITIALIZE, DockerInitializeTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
     }
 
     public static void addDockerCommand(List<String> args, DockerExtension ext) {

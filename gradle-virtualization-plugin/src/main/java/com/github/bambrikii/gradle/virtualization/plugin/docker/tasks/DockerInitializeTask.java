@@ -14,9 +14,9 @@ import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.Doc
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.TemplateUtils.prepareDirs;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.TemplateUtils.prepareFile;
 
-public class DockerInitializeDockerFileTask extends AbstractExecTask<DockerInitializeDockerFileTask> {
-    public DockerInitializeDockerFileTask() {
-        super(DockerInitializeDockerFileTask.class);
+public class DockerInitializeTask extends AbstractExecTask<DockerInitializeTask> {
+    public DockerInitializeTask() {
+        super(DockerInitializeTask.class);
     }
 
     @SneakyThrows
@@ -29,7 +29,7 @@ public class DockerInitializeDockerFileTask extends AbstractExecTask<DockerIniti
             return;
         }
 
-        prepareFile(this, DockerInitializeDockerFileTask.class, DOCKER_DIR, DOCKER_FILE, this::prepareTemplate);
+        prepareFile(this, DockerInitializeTask.class, DOCKER_DIR, DOCKER_FILE, this::prepareTemplate);
     }
 
     private String prepareTemplate(String template) {

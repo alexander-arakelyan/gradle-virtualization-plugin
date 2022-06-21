@@ -8,8 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static com.github.bambrikii.gradle.virtualization.plugin.utils.IOUtils.PATH_SEPARATOR;
-
 public class KubernetesUtils {
     public static final String KUBERNETES_DIR = "src/main/kubernetes";
     public static final String DEPLOYMENT_FILE = "deployment.yaml";
