@@ -1,7 +1,6 @@
 apply plugin: "java"
 apply plugin: "java-gradle-plugin"
 
-apply from: "../gradle/publish.gradle"
 apply from: "../gradle/plugin.gradle"
 
 dependencies {
@@ -26,40 +25,6 @@ gradlePlugin {
         virtualizationPlugin {
             id = "${group}.gradle.virtualization.plugin"
             implementationClass = "${group}.gradle.virtualization.plugin.VirtualizationPlugin"
-        }
-    }
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            pom.project {
-                name "Gradle Virtualization Plugin"
-                packaging "jar"
-                description "Gradle Virtualization Plugin automates Docker commands"
-                url "https://github.com/bambrikii/gradle-virtualization-plugin"
-
-                scm {
-                    connection "scm:git:https://github.com/bambrikii/gradle-virtualization-plugin.git"
-                    developerConnection "scm:git:https://github.com/bambrikii/gradle-virtualization-plugin.git"
-                    url "https://github.com/bambrikii/gradle-virtualization-plugin.git"
-                }
-
-                licenses {
-                    license {
-                        name "GNU General Public License version 3"
-                        url "https://opensource.org/licenses/GPL-3.0"
-                    }
-                }
-
-                developers {
-                    developer {
-                        id "bambrikii"
-                        name "Alexander Arakelyan"
-                        email "bambrikii@gmail.com"
-                    }
-                }
-            }
         }
     }
 }

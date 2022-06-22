@@ -9,21 +9,21 @@
     1. `kubernetesDeleteSecret`
 2. `virtualizationBuild` - includes:
     1. `dockerLogin`
-    1. `kubernetesDeleteSecret`
-    1. `kubernetesCreateSecret`
+    1. `kubernetesDeleteSecrets`
+    1. `kubernetesCreateSecrets`
     1. `dockerBuild`
     1. `dockerTag`
 3. `virtualizationDeploy` - includes:
     1. `dockerLogin`
-    1. `kubernetesDeleteSecret`
-    1. `kubernetesCreateSecret`
+    1. `kubernetesDeleteSecrets`
+    1. `kubernetesCreateSecrets`
     1. `dockerBuild`
     1. `dockerTag`
     1. `dockerPush`
     1. `kubernetesApply`
 4. `virtializationInitialze` - includes:
-   1. `dockerInitializeDockerfile`
-   2. `kubernetesInitialize`
+    1. `dockerInitializeDockerfile`
+    2. `kubernetesInitialize`
 
 ### Docker Commands
 
@@ -42,8 +42,8 @@
 3. `kubernetesGetPods` - executes `minikube kubectl -- get po - A`
 4. `kubernetesApply` - executes `kubectl apply`
 5. `kubectlInitialize` - generate sample files:
-   1. `src/main/kubernetes/deployment.yaml`
-   2. `src/main/kubernetes/service.yaml`
+    1. `src/main/kubernetes/deployment.yaml`
+    2. `src/main/kubernetes/service.yaml`
 
 ## Configuration
 

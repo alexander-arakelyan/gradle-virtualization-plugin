@@ -1,6 +1,5 @@
 package com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext;
 
-import com.github.bambrikii.gradle.virtualization.plugin.docker.ext.DockerRegistry;
 import groovy.lang.Closure;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +28,18 @@ public class KubernetesExtension {
     private String dockerConfig;
     @Inject
     private List<String> resources = new ArrayList<>();
+    @Inject
+    private List<KubernetesSecret> secrets = new ArrayList<>();
 
-    public void repositories(Closure<ArrayList<String>> closure) {
+    public void resources(Closure<ArrayList<String>> closure) {
         ConfigureUtil.configure(closure, resources);
+    }
+
+    public void secrets(Closure<ArrayList<KubernetesSecret>> closure) {
+        ConfigureUtil.configure(closure, secrets);
+    }
+
+    public void secret(Closure<KubernetesSecret> closure) {
+        secrets.add(ConfigureUtil.configure(closure, new KubernetesSecret()));
     }
 }

@@ -23,6 +23,9 @@ if (pluginExists) {
     apply plugin: "${group}.gradle.virtualization.plugin"
 
     logger.lifecycle("Plugin JAR found - configuring plugin")
+
+    def userHome = "" + System.getProperty("user.home")
+
     kubernetes {
         kubernetesClusterCommand = "minikube" // optional
         kubernetesCommand = "kubectl" // optional
@@ -30,6 +33,25 @@ if (pluginExists) {
                 "${projectDir}/src/main/kubernetes/my-env.yaml"
         ]
         namespace = "${dockerNamespace}"
+        secrets {
+            secret {
+                name = "regcred"
+                file = ".dockerconfigjson=${userHome}/.docker/config.json"
+                type = "kubernetes.io/dockerconfigjson"
+            }
+            secret {
+                name = "db-name"
+                literal = ""
+            }
+            secret {
+                name = "db-password"
+                literal = ""
+            }
+            secret {
+                name = "db-host"
+                literal = ""
+            }
+        }
     }
 
     docker {
