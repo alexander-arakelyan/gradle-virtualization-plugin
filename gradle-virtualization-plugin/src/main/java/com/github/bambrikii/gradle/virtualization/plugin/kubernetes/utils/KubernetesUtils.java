@@ -2,6 +2,7 @@ package com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils;
 
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext.KubernetesExtension;
 import com.github.bambrikii.gradle.virtualization.plugin.utils.StringUtils;
+import org.gradle.api.Project;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -43,5 +44,9 @@ public class KubernetesUtils {
     public static String getDefaultNamespace(KubernetesExtension ext) {
         String namespace = ext.getNamespace();
         return StringUtils.isEmpty(namespace) ? DEFAULT_NAMESPACE : namespace;
+    }
+
+    public static void name(Project project, String name, List<String> args) {
+        args.add(StringUtils.isEmpty(name) ? project.getName() : name);
     }
 }

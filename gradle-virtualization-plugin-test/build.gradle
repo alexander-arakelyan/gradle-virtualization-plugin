@@ -33,23 +33,28 @@ if (pluginExists) {
                 "${projectDir}/src/main/kubernetes/my-env.yaml"
         ]
         namespace = "${dockerNamespace}"
-        secrets {
-            secret {
+        secretGroups {
+            secretGroup {
                 name = "regcred"
-                file = ".dockerconfigjson=${userHome}/.docker/config.json"
-                type = "kubernetes.io/dockerconfigjson"
+                secret {
+                    file = ".dockerconfigjson=${userHome}/.docker/config.json"
+                    type = "kubernetes.io/dockerconfigjson"
+                }
             }
-            secret {
-                name = "db-name"
-                literal = ""
-            }
-            secret {
-                name = "db-password"
-                literal = ""
-            }
-            secret {
-                name = "db-host"
-                literal = ""
+            secretGroup {
+                name = "db"
+                secret {
+                    name = "db-name"
+                    literal = ""
+                }
+                secret {
+                    name = "db-password"
+                    literal = "2"
+                }
+                secret {
+                    name = "db-host"
+                    literal = "3"
+                }
             }
         }
     }

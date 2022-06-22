@@ -29,17 +29,17 @@ public class KubernetesExtension {
     @Inject
     private List<String> resources = new ArrayList<>();
     @Inject
-    private List<KubernetesSecret> secrets = new ArrayList<>();
+    private List<KubernetesSecretGroup> secretGroups = new ArrayList<>();
 
     public void resources(Closure<ArrayList<String>> closure) {
         ConfigureUtil.configure(closure, resources);
     }
 
-    public void secrets(Closure<ArrayList<KubernetesSecret>> closure) {
-        ConfigureUtil.configure(closure, secrets);
+    public void secretGroups(Closure<ArrayList<KubernetesSecretGroup>> closure) {
+        ConfigureUtil.configure(closure, secretGroups);
     }
 
-    public void secret(Closure<KubernetesSecret> closure) {
-        secrets.add(ConfigureUtil.configure(closure, new KubernetesSecret()));
+    public void secretGroup(Closure<KubernetesSecretGroup> closure) {
+        secretGroups.add(ConfigureUtil.configure(closure, new KubernetesSecretGroup()));
     }
 }
