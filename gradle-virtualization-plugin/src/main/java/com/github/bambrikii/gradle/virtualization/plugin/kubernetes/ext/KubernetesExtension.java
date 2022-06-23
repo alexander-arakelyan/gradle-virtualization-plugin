@@ -30,6 +30,8 @@ public class KubernetesExtension {
     private List<String> resources = new ArrayList<>();
     @Inject
     private List<KubernetesSecretGroup> secretGroups = new ArrayList<>();
+    @Inject
+    private List<KubernetesConfigmapGroup> configmapGroups = new ArrayList<>();
 
     public void resources(Closure<ArrayList<String>> closure) {
         ConfigureUtil.configure(closure, resources);
@@ -41,5 +43,13 @@ public class KubernetesExtension {
 
     public void secretGroup(Closure<KubernetesSecretGroup> closure) {
         secretGroups.add(ConfigureUtil.configure(closure, new KubernetesSecretGroup()));
+    }
+
+    public void configmapGroups(Closure<ArrayList<KubernetesConfigmapGroup>> closure) {
+        ConfigureUtil.configure(closure, secretGroups);
+    }
+
+    public void configmapGroup(Closure<KubernetesConfigmapGroup> closure) {
+        configmapGroups.add(ConfigureUtil.configure(closure, new KubernetesConfigmapGroup()));
     }
 }

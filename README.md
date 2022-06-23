@@ -17,6 +17,8 @@
     1. `dockerLogin`
     1. `kubernetesDeleteSecrets`
     1. `kubernetesCreateSecrets`
+    1. `kubernetesDeleteConfigmaps`
+    1. `kubernetesCreateConfigmaps`
     1. `dockerBuild`
     1. `dockerTag`
     1. `dockerPush`
@@ -39,6 +41,8 @@
 
 1. `kubernetesDeleteSecret` - executes `kubectl delete secret`
 2. `kubernetesCreateSecret` - executes `kubectl create secret`
+1. `kubernetesDeleteConfigmaps` - executes `kubectl delete configmaps`
+2. `kubernetesCreateConfigmaps` - executes `kubectl create configmaps`
 3. `kubernetesGetPods` - executes `minikube kubectl -- get po - A`
 4. `kubernetesApply` - executes `kubectl apply`
 5. `kubectlInitialize` - generate sample files:

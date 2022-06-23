@@ -1,5 +1,6 @@
 package com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils;
 
+import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext.KubernetesConfigurable;
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext.KubernetesExtension;
 import com.github.bambrikii.gradle.virtualization.plugin.utils.StringUtils;
 import org.gradle.api.Project;
@@ -48,5 +49,41 @@ public class KubernetesUtils {
 
     public static void name(Project project, String name, List<String> args) {
         args.add(StringUtils.isEmpty(name) ? project.getName() : name);
+    }
+
+    public static void tryAddSecretLiteral(KubernetesConfigurable secret, List<String> args) {
+        String literal = secret.getLiteral();
+        if (StringUtils.isEmpty(literal)) {
+            return;
+        }
+
+        StringBuilder sb = buildKeyValue("--from-literal=", literal, secret.getName());
+        args.add(sb.toString());
+    }
+
+    public static void tryAddSecretFile(KubernetesConfigurable secret, List<String> args) {
+        String file = secret.getFile();
+        if (StringUtils.isEmpty(file)) {
+            return;
+        }
+        StringBuilder sb = buildKeyValue("--from-file=", file, secret.getName());
+        args.add(sb.toString());
+    }
+
+    public static void tryAddSecretType(KubernetesConfigurable secret, List<String> args) {
+        String type = secret.getType();
+        if (StringUtils.isEmpty(type)) {
+            return;
+        }
+        args.add("--type=" + type);
+    }
+
+    public static StringBuilder buildKeyValue(String str, String literal, String key) {
+        StringBuilder sb = new StringBuilder(str);
+        if (!StringUtils.isEmpty(key)) {
+            sb.append(key).append("=");
+        }
+        sb.append(literal);
+        return sb;
     }
 }

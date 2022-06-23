@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class KubernetesSecret implements KubernetesConfigurable {
+public class KubernetesConfigMap implements KubernetesConfigurable {
     private String name;
     private String literal;
     private String file;

@@ -1,7 +1,7 @@
 package com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks;
 
+import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext.KubernetesConfigmapGroup;
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext.KubernetesExtension;
-import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.ext.KubernetesSecretGroup;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.TaskAction;
@@ -17,9 +17,9 @@ import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesUtils.tryAddSecretType;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 
-public class KubernetesCreateSecretsTask extends AbstractExecTask<KubernetesCreateSecretsTask> {
-    public KubernetesCreateSecretsTask() {
-        super(KubernetesCreateSecretsTask.class);
+public class KubernetesCreateConfigmapsTask extends AbstractExecTask<KubernetesCreateConfigmapsTask> {
+    public KubernetesCreateConfigmapsTask() {
+        super(KubernetesCreateConfigmapsTask.class);
     }
 
     @TaskAction
@@ -27,26 +27,25 @@ public class KubernetesCreateSecretsTask extends AbstractExecTask<KubernetesCrea
         Project project = getProject();
         KubernetesExtension ext = project.getExtensions().getByType(KubernetesExtension.class);
 
-        List<KubernetesSecretGroup> secretGroups = ext.getSecretGroups();
-        if (secretGroups == null || secretGroups.isEmpty()) {
+        List<KubernetesConfigmapGroup> configmapGroups = ext.getConfigmapGroups();
+        if (configmapGroups == null || configmapGroups.isEmpty()) {
             return;
         }
 
-        secretGroups.forEach(secret -> create(ext, secret));
+        configmapGroups.forEach(configmap -> create(ext, configmap));
     }
 
-    private void create(KubernetesExtension ext, KubernetesSecretGroup secretGroup) {
+    private void create(KubernetesExtension ext, KubernetesConfigmapGroup secretGroup) {
         List<String> args = new ArrayList<>();
         command(ext, args);
         args.add("create");
-        args.add("secret");
-        args.add("generic");
+        args.add("configmap");
         args.add(secretGroup.getName());
 
-        secretGroup.getSecrets().forEach(secret -> {
-            tryAddSecretLiteral(secret, args);
-            tryAddSecretFile(secret, args);
-            tryAddSecretType(secret, args);
+        secretGroup.getConfigmaps().forEach(configmap -> {
+            tryAddSecretLiteral(configmap, args);
+            tryAddSecretFile(configmap, args);
+            tryAddSecretType(configmap, args);
         });
 
         namespace(ext, args);
