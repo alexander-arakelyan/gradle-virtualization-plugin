@@ -8,6 +8,7 @@ import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesUtils.DEPLOYMENT_FILE;
@@ -18,19 +19,21 @@ import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.IOUtils.PATH_SEPARATOR;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.LogUtils.logCommand;
 
-public class KubernetesApplyTask extends AbstractExecTask<KubernetesApplyTask> {
-    public KubernetesApplyTask() {
-        super(KubernetesApplyTask.class);
+public class KubernetesDeleteTask extends AbstractExecTask<KubernetesDeleteTask> {
+    public KubernetesDeleteTask() {
+        super(KubernetesDeleteTask.class);
     }
 
     @TaskAction
     public void exec() {
         Project project = getProject();
+
         KubernetesExtension ext = project.getExtensions().getByType(KubernetesExtension.class);
 
         String path = getKubernetesDir(getWorkingDir()) + PATH_SEPARATOR;
 
-        List<GString> resources = (List) ext.getResources();
+        List<GString> resources = new ArrayList<>((List) ext.getResources());
+        Collections.reverse(resources);
         boolean resourcesFound = resources != null && !resources.isEmpty();
         if (resourcesFound) {
             resources.forEach(resource -> exec(ext, resource.toString()));
@@ -43,8 +46,8 @@ public class KubernetesApplyTask extends AbstractExecTask<KubernetesApplyTask> {
         }
 
         if (!resourcesFound && !resourceFound) {
-            tryExec(ext, path + DEPLOYMENT_FILE);
             tryExec(ext, path + SERVICE_FILE);
+            tryExec(ext, path + DEPLOYMENT_FILE);
         }
     }
 
@@ -61,7 +64,7 @@ public class KubernetesApplyTask extends AbstractExecTask<KubernetesApplyTask> {
 
         command(ext, args);
         namespace(ext, args);
-        apply(args, file);
+        delete(args, file);
 
         commandLine(args);
         logCommand(getLogger(), getCommandLine());
@@ -69,8 +72,8 @@ public class KubernetesApplyTask extends AbstractExecTask<KubernetesApplyTask> {
         super.exec();
     }
 
-    private void apply(List<String> args, String kubernetesDeploymentFile) {
-        args.add("apply");
+    private void delete(List<String> args, String kubernetesDeploymentFile) {
+        args.add("delete");
         args.add("-f");
         args.add(kubernetesDeploymentFile);
     }

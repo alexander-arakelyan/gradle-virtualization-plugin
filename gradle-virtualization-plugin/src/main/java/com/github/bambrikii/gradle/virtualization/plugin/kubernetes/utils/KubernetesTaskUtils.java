@@ -6,6 +6,7 @@ import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.Kubern
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.KubernetesCreateSecretsTask;
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.KubernetesDeleteConfigmapsTask;
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.KubernetesDeleteSecretsTask;
+import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.KubernetesDeleteTask;
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.KubernetesGetPodsTask;
 import com.github.bambrikii.gradle.virtualization.plugin.kubernetes.tasks.KubernetesInitializeTask;
 import org.gradle.api.Project;
@@ -21,6 +22,7 @@ public class KubernetesTaskUtils {
     public static final String KUBERNETES_CREATE_CONFIGMAPS = "kubernetesCreateConfigmaps";
     public static final String KUBERNETES_DELETE_CONFIGMAPS = "kubernetesDeleteConfigmaps";
     public static final String KUBERNETES_APPLY = "kubernetesApply";
+    public static final String KUBERNETES_DELETE = "kubernetesDelete";
     public static final String KUBERNETES_GET_PODS = "kubernetesGetPods";
 
     private KubernetesTaskUtils() {
@@ -37,6 +39,7 @@ public class KubernetesTaskUtils {
         tasks.register(KUBERNETES_DELETE_CONFIGMAPS, KubernetesDeleteConfigmapsTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
         tasks.register(KUBERNETES_GET_PODS, KubernetesGetPodsTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
         tasks.register(KUBERNETES_APPLY, KubernetesApplyTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
+        tasks.register(KUBERNETES_DELETE, KubernetesDeleteTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
         tasks.register(KUBERNETES_INITIALIZE, KubernetesInitializeTask.class, task -> task.setGroup(VIRTUALIZATION_GROUP));
     }
 }

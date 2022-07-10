@@ -16,50 +16,54 @@ import static org.codehaus.groovy.runtime.StringGroovyMethods.isBlank;
 
 @Setter
 public class DockerLoginTask extends AbstractExecTask<DockerLoginTask> {
-  public DockerLoginTask() {
-    super(DockerLoginTask.class);
-  }
-
-  @TaskAction
-  public void exec() {
-    Project project = getProject();
-    String version = project.getVersion().toString();
-    DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
-
-    List<String> args = new ArrayList<>();
-    addDockerCommand(args, ext);
-    args.add("login");
-    addCredentials(args, ext);
-    addRepo(args, version, ext);
-
-    commandLine(args);
-
-    List<String> commandLine = new ArrayList<>(getCommandLine());
-    commandLine.set(commandLine.size() - 2, "<secret>");
-    LogUtils.logCommand(getLogger(), commandLine);
-
-    super.exec();
-  }
-
-  private void addCredentials(List<String> args, DockerExtension ext) {
-    String username = ext.getUsername();
-    String password = ext.getPassword();
-
-    if (isBlank(username)) {
-      return;
+    public DockerLoginTask() {
+        super(DockerLoginTask.class);
     }
-    args.add("--username");
-    args.add(username);
-    args.add("--password");
-    args.add(password);
-  }
 
-  private void addRepo(List<String> args, String version, DockerExtension ext) {
-    String repo = extractRepo(ext, version);
+    @TaskAction
+    public void exec() {
+        Project project = getProject();
+        String version = project.getVersion().toString();
+        DockerExtension ext = project.getExtensions().getByType(DockerExtension.class);
 
-    if (isBlank(repo)) {
-      throw new IllegalArgumentException("Docker repo required!");
+        List<String> args = new ArrayList<>();
+        addDockerCommand(args, ext);
+        args.add("login");
+        boolean credentials = addCredentials(args, ext);
+        addRepo(args, version, ext);
+
+        commandLine(args);
+
+        List<String> commandLine = new ArrayList<>(getCommandLine());
+        if (credentials) {
+            commandLine.set(commandLine.size() - 2, "<secret>");
+        }
+        LogUtils.logCommand(getLogger(), commandLine);
+
+        super.exec();
     }
-    args.add(repo);
-  }
+
+    private boolean addCredentials(List<String> args, DockerExtension ext) {
+        String username = ext.getUsername();
+        if (isBlank(username)) {
+            return false;
+        }
+
+        args.add("--username");
+        args.add(username);
+
+        String password = ext.getPassword();
+        args.add("--password");
+        args.add(password);
+        return true;
+    }
+
+    private void addRepo(List<String> args, String version, DockerExtension ext) {
+        String repo = extractRepo(ext, version);
+
+        if (isBlank(repo)) {
+            throw new IllegalArgumentException("Docker repo required!");
+        }
+        args.add(repo);
+    }
 }
