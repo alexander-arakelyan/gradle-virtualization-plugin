@@ -11,6 +11,7 @@ import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.Doc
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.DOCKER_TAG;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_APPLY;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_CREATE_CONFIGMAPS;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_CREATE_NAMESPACE;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_CREATE_SECRETS;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_CONFIGMAPS;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_SECRETS;
@@ -25,6 +26,8 @@ public class VirtualizationDeployTask extends DefaultTask {
         execTask(tasks, DOCKER_LOGIN);
 
         Logger logger = getLogger();
+
+        tryExecTask(tasks, KUBERNETES_CREATE_NAMESPACE, logger);
 
         tryExecTask(tasks, KUBERNETES_DELETE_SECRETS, logger);
         execTask(tasks, KUBERNETES_CREATE_SECRETS);

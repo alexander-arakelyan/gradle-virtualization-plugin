@@ -7,6 +7,7 @@ import org.gradle.api.tasks.TaskContainer;
 
 import static com.github.bambrikii.gradle.virtualization.plugin.docker.utils.DockerTaskUtils.DOCKER_CONTAINER_RM;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_CONFIGMAPS;
+import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_NAMESPACE;
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_SECRETS;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.tryExecTask;
 
@@ -20,5 +21,7 @@ public class VirtualizationCleanTask extends DefaultTask {
         tryExecTask(tasks, DOCKER_CONTAINER_RM, logger);
         tryExecTask(tasks, KUBERNETES_DELETE_CONFIGMAPS, logger);
         tryExecTask(tasks, KUBERNETES_DELETE_SECRETS, logger);
+
+        tryExecTask(tasks, KUBERNETES_DELETE_NAMESPACE, logger);
     }
 }
