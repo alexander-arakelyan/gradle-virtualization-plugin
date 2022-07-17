@@ -1,6 +1,7 @@
 package com.github.bambrikii.gradle.virtualization.plugin.tasks;
 
 import org.gradle.api.DefaultTask;
+import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.TaskContainer;
@@ -17,13 +18,13 @@ import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils
 import static com.github.bambrikii.gradle.virtualization.plugin.kubernetes.utils.KubernetesTaskUtils.KUBERNETES_DELETE_SECRETS;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.execTask;
 import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.tryExecTask;
+import static com.github.bambrikii.gradle.virtualization.plugin.utils.VirtualizationTaskUtils.tryWithDocker;
 
 public class VirtualizationDeployTask extends DefaultTask {
     @TaskAction
     public void deploy() {
-        TaskContainer tasks = getProject().getTasks();
-
-        execTask(tasks, DOCKER_LOGIN);
+        Project project = getProject();
+        TaskContainer tasks = project.getTasks();
 
         Logger logger = getLogger();
 
@@ -35,10 +36,15 @@ public class VirtualizationDeployTask extends DefaultTask {
         tryExecTask(tasks, KUBERNETES_DELETE_CONFIGMAPS, logger);
         execTask(tasks, KUBERNETES_CREATE_CONFIGMAPS);
 
-        execTask(tasks, DOCKER_BUILD);
-        execTask(tasks, DOCKER_TAG);
+        tryWithDocker(unused -> {
+            execTask(tasks, DOCKER_LOGIN);
 
-        execTask(tasks, DOCKER_PUSH);
+            execTask(tasks, DOCKER_BUILD);
+            execTask(tasks, DOCKER_TAG);
+
+            execTask(tasks, DOCKER_PUSH);
+        }, project);
+
         execTask(tasks, KUBERNETES_APPLY);
     }
 }
